@@ -1,5 +1,235 @@
 <!DOCTYPE html>
-<html>
-  <head><title>My Site</title></head>
-  <body><h1>Hello, world!</h1></body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Rivera — Software Engineer &amp; Maker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A4A;
+    --paper:#E9EDF2;
+    --card:#FFFFFF;
+    --brass:#B8863B;
+    --graphite:#2B2E33;
+    --slate:#6B7684;
+    --signal:#A63D2F;
+    --radius:6px;
+    --wrap:1100px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--graphite);
+    font-family:'Source Serif 4',serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; scroll-behavior:auto !important;} }
+
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 28px;}
+
+  /* ---- nav ---- */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:var(--ink); color:var(--paper);
+    border-bottom:2px solid var(--brass);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  nav .brand{font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:.02em;}
+  nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0; font-family:'IBM Plex Mono',monospace; font-size:.85rem;}
+  nav a{text-decoration:none; opacity:.85;}
+  nav a:hover{opacity:1; color:var(--brass);}
+
+  /* ---- ruler divider (signature element) ---- */
+  .ruler{
+    height:22px;
+    background-image:
+      repeating-linear-gradient(to right, var(--slate) 0 1px, transparent 1px 20px),
+      repeating-linear-gradient(to right, var(--slate) 0 1px, transparent 1px 100px);
+    background-position:bottom left, bottom left;
+    background-size:20px 8px, 100px 14px;
+    background-repeat:repeat-x;
+    opacity:.5;
+  }
+
+  /* ---- hero / title block ---- */
+  .hero{padding:64px 0 40px;}
+  .titleblock{
+    border:2px solid var(--ink);
+    border-radius:var(--radius);
+    background:var(--card);
+    padding:36px 40px;
+  }
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:.8rem; letter-spacing:.12em; color:var(--brass); text-transform:uppercase;}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.4rem); margin:.3em 0 .2em; color:var(--ink);}
+  .hero .tagline{font-style:italic; max-width:56ch; font-size:1.15rem; color:var(--graphite);}
+  .meta-row{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    margin-top:28px; border-top:1px solid var(--slate);
+  }
+  .meta-item{padding:14px 20px 0; border-left:1px solid var(--slate);}
+  .meta-item:first-child{border-left:none; padding-left:0;}
+  .meta-item span{display:block;}
+  .meta-item .label{font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--slate); text-transform:uppercase; letter-spacing:.08em;}
+  .meta-item .value{font-family:'IBM Plex Mono',monospace; font-size:.92rem; margin-top:4px;}
+
+  /* ---- sections ---- */
+  section{padding:52px 0;}
+  .section-head{margin-bottom:32px;}
+  .section-head .eyebrow{display:block; margin-bottom:6px;}
+  .section-head h2{font-size:1.9rem; color:var(--ink);}
+
+  /* ---- work grid ---- */
+  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .card{
+    background:var(--card); border:1px solid var(--slate); border-radius:var(--radius);
+    padding:22px; position:relative; display:flex; flex-direction:column; gap:10px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(27,42,74,.12);}
+  .card .catalog{position:absolute; top:16px; right:18px; font-size:.72rem; color:var(--signal); font-weight:500;}
+  .card h3{font-size:1.2rem; color:var(--ink); padding-right:60px;}
+  .card p{margin:0; font-size:.95rem; color:var(--graphite);}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;}
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:.72rem; background:var(--paper); border:1px solid var(--slate); border-radius:3px; padding:3px 7px; color:var(--slate);}
+  .card .view{margin-top:auto; font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:var(--brass); text-decoration:none;}
+
+  /* ---- about ---- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start;}
+  .bom{border:1px solid var(--slate); border-radius:var(--radius); background:var(--card); padding:20px 24px;}
+  .bom .row{display:flex; justify-content:space-between; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:.85rem; padding:8px 0; border-bottom:1px dashed var(--slate);}
+  .bom .row:last-child{border-bottom:none;}
+  .bom .row .k{color:var(--slate);}
+
+  /* ---- footer / mirrored title block ---- */
+  footer{background:var(--ink); color:var(--paper); padding:44px 0 30px;}
+  footer .titleblock{border:2px solid var(--paper); background:transparent; padding:30px 36px;}
+  footer h2{color:var(--paper); font-size:1.6rem;}
+  footer .links{display:flex; gap:22px; margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:.9rem;}
+  footer .links a{text-decoration:none; opacity:.85;}
+  footer .links a:hover{opacity:1; color:var(--brass);}
+  footer .copyright{margin-top:26px; font-size:.75rem; opacity:.6; font-family:'IBM Plex Mono',monospace;}
+
+  @media (max-width:800px){
+    .work-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .meta-row{grid-template-columns:1fr;}
+    .meta-item{border-left:none; border-top:1px solid var(--slate); padding:14px 0 0;}
+    .meta-item:first-child{border-top:none;}
+    nav ul{gap:16px; font-size:.78rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">Mahee Nur</span>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="titleblock">
+      <span class="eyebrow">Profile</span>
+      <h1>Mahee Nur</h1>
+      <p class="tagline">Software engineer who builds small, sturdy things - from backend systems to weekend hardware projects.</p>
+      <div class="meta-row">
+        <div class="meta-item">
+          <span class="label">Status</span>
+          <span class="value">freelancing</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Contact</span>
+          <span class="value">maheeislamnur@protonmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ruler"></div>
+
+<!--
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow mono">Spec - Selected Work</span>
+      <h2>Things I've built</h2>
+    </div>
+    <div class="work-grid">
+      <div class="card">
+        <span class="catalog">SPEC-01</span>
+        <h3>Routecheck</h3>
+        <p>Uptime monitor for small APIs, with plain-English incident summaries instead of raw logs.</p>
+        <div class="tags"><span class="tag">Go</span><span class="tag">Postgres</span><span class="tag">React</span></div>
+        <a class="view" href="#">View project →</a>
+      </div>
+      <div class="card">
+        <span class="catalog">SPEC-02</span>
+        <h3>Fieldnote</h3>
+        <p>Offline-first note app for hikers, syncing quietly whenever signal returns.</p>
+        <div class="tags"><span class="tag">Swift</span><span class="tag">CoreData</span></div>
+        <a class="view" href="#">View project →</a>
+      </div>
+      <div class="card">
+        <span class="catalog">SPEC-03</span>
+        <h3>Deskbot</h3>
+        <p>A tiny Raspberry Pi arm that waters one plant, on schedule, without asking twice.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Hardware</span></div>
+        <a class="view" href="#">View project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ruler"></div>
+-->
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow mono">Background</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <p>I've spent the last six years building backend systems for teams who'd rather not think about their infrastructure. Lately I've been happiest with a soldering iron in hand, turning ideas that don't fit in a browser into ones that do. I like tools that disappear into the work.</p>
+      <div class="bom">
+        <div class="row"><span class="k">Languages</span><span>cpp, python</span></div>
+        <div class="row"><span class="k">Frontend</span><span>react</span></div>
+        <div class="row"><span class="k">Server</span><span>flask</span></div>
+        <div class="row"><span class="k">Hardware</span><span>verilog, arduino</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="titleblock">
+      <span class="eyebrow" style="color:#D9C08F">Get in touch</span>
+      <h2>Let's build something.</h2>
+      <div class="links">
+        <a href="https://github.com/maheenur">GitHub</a>
+        <a href="https://www.linkedin.com/in/mahee-nur/">LinkedIn</a>
+      </div>
+    </div>
+    <div class="copyright">Built by hand, not by template.</div>
+  </div>
+</footer>
+
+</body>
 </html>
